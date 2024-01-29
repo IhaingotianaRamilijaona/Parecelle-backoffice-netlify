@@ -8,6 +8,7 @@ export default function ListTerrainsNonValide(props){
     const valider = async (terrainObject) => {
         
         try {
+            props.toggleLoading(true);
             const response = await fetch("https://parecelle-webservice-production.up.railway.app/PUT/terrains", {
                 method: 'PUT',
                 headers: {
@@ -15,13 +16,10 @@ export default function ListTerrainsNonValide(props){
                 },
                 body: JSON.stringify(terrainObject)
             });
-            navigate('/cultures');
     
             if (!response.ok) {
                 throw new Error('Failed to insert data');
             }
-    
-            const data = await response.json();
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -34,20 +32,20 @@ export default function ListTerrainsNonValide(props){
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Nom</th>
-                        <th>Prix</th>
+                        <th>Propriétaire</th>
+                        <th>Nombre parecelles</th>
+                        <th>latitude</th>
+                        <th>longitude</th>
                     </tr>
                 </thead>
                 <tbody>
                 {listTerrain && listTerrain.map((terrain => (
                     <tr>
                         <td>{terrain.proprietaire.nomUser}</td>
-                        <td>{terrain.description}</td>
                         <td>{terrain.nombreParecelles}</td>
                         <td>{terrain.latitude}</td>
                         <td>{terrain.longitude}</td>
-                        <td><button type='button' onClick={() => valider(terrain)}>Valider</button></td>
+                        <td style= {{borderBottom : "none",paddingLeft : "2%" }} ><button type='button' onClick={() => valider(terrain)}>Valider</button></td>
                     </tr>
                 )))}
                 </tbody>

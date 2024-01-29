@@ -1,5 +1,6 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
+import '../css/login.css';
 
 export default function Login (){
     const [nom, setnom] = useState(''); 
@@ -21,14 +22,13 @@ export default function Login (){
         }
     }
     return(
-        <body>
         <div className="form_login">
             <form>
-                <input type="text" placeholder="Votre identifiant" value={nom} onChange={(e) => setnom(e.target.value)}/>
-                <input type="password" placeholder="Votre mot de passe" min="0" value={mdp} onChange={(e) => setmdp(e.target.value)}/>
+                <h1 style={{ fontSize: '30px' }} >Admin</h1>
+                <input type="text" placeholder="Identifiant : Bob " value={nom} onChange={(e) => setnom(e.target.value)} values="Bob"/>
+                <input type="password" placeholder="Mot de passe : pass456" min="0" value={mdp} onChange={(e) => setmdp(e.target.value)} values="pass456"/>
                 <button type='button' onClick={checklogin}>Connexion</button>
             </form>
         </div>
-        </body>
     )
 }

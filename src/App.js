@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter as Router , Route , Routes } from "react-router-dom";
 import  TerrainNonValide from './pages/TerrainNonValide';
 import Cultures from './pages/Cultures';
@@ -7,16 +6,13 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <body>
     <Router>
         <Routes>
             <Route path="/terrain-nonValide" element={< TerrainNonValide />} />    
-            <Route path="/cultures" element={< Cultures />} />
-            <Route path="/culture-formulaire" element={< CultureFormulaire />} />    
+            <Route path="/cultures" element={< Cultures />} />   
             <Route path="/" element={< Login />} />    
         </Routes>
     </Router>
-  </body>
   );
 }
 
