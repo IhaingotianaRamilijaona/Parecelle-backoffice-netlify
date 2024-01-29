@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 export default function ListTerrainsNonValide(props){
     const [listTerrain,setListTerrain] = useState(props.listTerrain);
 
+    useEffect(() => {
+        setListTerrain(props.listTerrain);
+    }, []);
+
     const navigate = useNavigate();
     const valider = async (terrainObject) => {
         
@@ -27,30 +31,6 @@ export default function ListTerrainsNonValide(props){
 
     return(
         <>
-
-        <div className="list_terrain">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Propriétaire</th>
-                        <th>Nombre parecelles</th>
-                        <th>latitude</th>
-                        <th>longitude</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {listTerrain && listTerrain.map((terrain => (
-                    <tr>
-                        <td>{terrain.proprietaire.nomUser}</td>
-                        <td>{terrain.nombreParecelles}</td>
-                        <td>{terrain.latitude}</td>
-                        <td>{terrain.longitude}</td>
-                        <td style= {{borderBottom : "none",paddingLeft : "2%" }} ><button type='button' onClick={() => valider(terrain)}>Valider</button></td>
-                    </tr>
-                )))}
-                </tbody>
-            </table>
-        </div>
 
         </> 
     )

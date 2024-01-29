@@ -9,7 +9,7 @@ export default function TerrainNonValide () {
 
     useEffect(() => {
         fetchData();
-    }, [loading]);
+    }, []);
 
     const navigate = useNavigate();
     const fetchData = async() => {
@@ -25,11 +25,28 @@ export default function TerrainNonValide () {
             console.error('Error fetching data:', error);
         }
     }
-  
-    const toggleLoading = (isLoading) => {
-        setLoading(isLoading);
-    }
 
+    const valider = async (terrainObject) => {
+        
+        try {
+            setLoading(true);
+            const response = await fetch("https://parecelle-webservice-production.up.railway.app/PUT/terrains", {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(terrainObject)
+            });
+            fetchData();
+            if (!response.ok) {
+                throw new Error('Failed to insert data');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+  
+    
     return(
         <>
                 <div className="main-container" >
@@ -48,7 +65,29 @@ export default function TerrainNonValide () {
                                                 <img src={loadingSpinner} />
                                         </div>
                                     ) : (
-                                        <ListTerrainsNonValide listTerrain={listTerrain} toggleLoading={toggleLoading} />
+                                        <div className="list_terrain">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Propriétaire</th>
+                                                        <th>Nombre parecelles</th>
+                                                        <th>latitude</th>
+                                                        <th>longitude</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {listTerrain && listTerrain.map((terrain => (
+                                                    <tr>
+                                                        <td>{terrain.proprietaire.nomUser}</td>
+                                                        <td>{terrain.nombreParecelles}</td>
+                                                        <td>{terrain.latitude}</td>
+                                                        <td>{terrain.longitude}</td>
+                                                        <td style= {{borderBottom : "none",paddingLeft : "2%" }} ><button type='button' onClick={() => valider(terrain)}>Valider</button></td>
+                                                    </tr>
+                                                )))}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     )}
                                 </article>
                             </main>
