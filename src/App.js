@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router , Route , Routes } from "react-router-dom";
+import  TerrainNonValide from './pages/TerrainNonValide';
+import Cultures from './pages/Cultures';
+import CultureFormulaire from './pages/CultureFormulaire';
+import Login from './pages/Login';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LEARN NEW THINGSSSSS
-        </a>
-      </header>
-    </div>
+    <body>
+    <Router>
+        <Routes>
+            <Route path="/terrain-nonValide" element={< TerrainNonValide />} />    
+            <Route path="/cultures" element={< Cultures />} />
+            <Route path="/culture-formulaire" element={< CultureFormulaire />} />    
+            <Route path="/" element={< Login />} />    
+        </Routes>
+    </Router>
+  </body>
   );
 }
 
